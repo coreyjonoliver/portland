@@ -37,7 +37,6 @@ esac
 url="https://dl.bintray.com/coreyoliver/portland/portland-0.1.0-$system.tar.bz2"
 
 require_util curl "download the binary tarball"
-require_util bzcat "decompress the binary tarball"
 require_util tar "unpack the binary tarball"
 require_util bash "run the installation script from the binary tarball"
 
