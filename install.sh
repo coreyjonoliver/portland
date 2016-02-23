@@ -6,7 +6,8 @@
 
 { # Prevent execution if this script was only partially downloaded
 
-unpack=portland-binary-tarball-unpack
+unpack=$(mktemp -d 2>/dev/null || mktemp -d -t 'portland-binary-tarball-unpack')
+trap 'rm -rf $unpack' EXIT
 
 require_util() {
     type "$1" > /dev/null 2>&1 || which "$1" > /dev/null 2>&1 ||
@@ -19,7 +20,6 @@ oops() {
     exit 1
 }
 
-# solaris, freebsd
 case "$(uname -s).$(uname -m)" in
     Linux.x86_64) system=linux-amd64;;
     Linux.i386) system=linux-386;;
@@ -33,7 +33,6 @@ case "$(uname -s).$(uname -m)" in
     *) oops "sorry, there is no binary distribution of Portland for your platform";;
 esac
 
-# Change _ to -; Use tar.bz2 instead of zip; Limit to *nix based systems
 url="https://dl.bintray.com/coreyoliver/portland/portland-0.1.0-$system.tar.bz2"
 
 require_util curl "download the binary tarball"
@@ -41,8 +40,7 @@ require_util tar "unpack the binary tarball"
 require_util bash "run the installation script from the binary tarball"
 
 echo "unpacking Portland binary tarball for $system from \`$url'..."
-mkdir "$unpack" || oops "failed to create \`$unpack' directory"
-curl -L "$url" | tar xz -C "$unpack" || oops "failed to unpack \`$url'"
+curl -L "$url" | tar xz -C "$unpack" #|| oops "failed to unpack \`$url'"
 
 
 if [ -d "$HOME/bin" ]; then
@@ -71,7 +69,5 @@ if $sudo cp "$unpack/portland" $target; then
 else
     echo "Error: couldn't copy $bin_name to $target"
 fi
-
-rm -rf "$unpack"
 
 } # End of wrapping
