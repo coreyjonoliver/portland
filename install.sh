@@ -1,8 +1,7 @@
 #!/bin/sh
 
 # This script installs the Portland on your system by
-# downloading a binary distribution and running its installer script
-# (which in turn creates and populates /nix).
+# downloading a binary distribution
 
 { # Prevent execution if this script was only partially downloaded
 
