@@ -32,7 +32,7 @@ case "$(uname -s).$(uname -m)" in
     *) oops "sorry, there is no binary distribution of Portland for your platform";;
 esac
 
-url="https://dl.bintray.com/coreyoliver/portland/portland-0.2.0-$system.tar.bz2"
+url="https://dl.bintray.com/coreyoliver/portland/portland-0.2.0-$system.tar.gz"
 
 require_util curl "download the binary tarball"
 require_util tar "unpack the binary tarball"
