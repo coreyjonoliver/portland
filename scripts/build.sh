@@ -69,7 +69,7 @@ if [ "${PORTLAND_DEV}x" = "x" ]; then
         echo "--> ${OSARCH}"
 
         pushd $PLATFORM >/dev/null 2>&1
-        tar cfj ../${OSARCH}.tar.bz2 ./*
+        tar czf ../${OSARCH}.tar.gz ./*
         popd >/dev/null 2>&1
     done
 fi
