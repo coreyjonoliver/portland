@@ -6,7 +6,7 @@
 { # Prevent execution if this script was only partially downloaded
 
 unpack=$(mktemp -d 2>/dev/null || mktemp -d -t 'portland-binary-tarball-unpack')
-trap 'rm -rf $unpack' EXIT
+trap 'rm -rf $unpack' EXIT HUP INT QUIT TERM
 
 require_util() {
     type "$1" > /dev/null 2>&1 || which "$1" > /dev/null 2>&1 ||
